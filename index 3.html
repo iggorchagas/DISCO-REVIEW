@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DISCO REVIEW — Avalie Álbuns</title>
+  <link rel="icon" href="imagens/ICONE FUNDO AMARELO.png" type="" />
+ <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+
+
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="imagens/LOGOTIPO COM ICONE AMARELO.png" alt="Logo" height="40" />
+  </div>
+  <ul class="nav-links">
+    <li><a href="#generos">Gêneros</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+     <li><a href="#shows">Shows</a></li>
+    <li><a href="#" class="nav-btn" onclick="openLogin()">Login</a></li>
+  </ul>
+</nav>
+
+
+
+<section class="hero" id="home">
+  <p class="hero-tag">✦ A sua voz sobre a música pop</p>
+  <h1>Avalie <em>Álbuns</em></h1>
+  <p class="hero-sub">Descubra, explore e avalie os melhores álbuns do pop atual. Da trap ao indie, do R&B ao latino — tudo em um só lugar.</p>
+  <div class="hero-cta">
+    <button class="btn-primary" onclick="document.getElementById('generos').scrollIntoView({behavior:'smooth'})">Explorar gêneros</button>
+    <button class="btn-secondary" onclick="openLogin()">Criar conta</button>
+  </div>
+</section>
+
+<section id="generos">
+  <div class="section-label">
+    <h2>Explore por <span>Gênero</span></h2>
+    <p>Passe o mouse sobre um álbum para avaliá-lo</p>
+  </div>
+
+  <div class="genre-section">
+    <div class="genre-tabs">
+      <button class="genre-tab active" onclick="switchGenre('pop', this)">Pop</button>
+      <button class="genre-tab" onclick="switchGenre('pop-rap', this)">Pop Rap</button>
+      <button class="genre-tab" onclick="switchGenre('pop-rnb', this)">Pop R&B</button>
+      <button class="genre-tab" onclick="switchGenre('pop-latino', this)">Pop Latino</button>
+      <button class="genre-tab" onclick="switchGenre('indie-pop', this)">Indie Pop</button>
+    </div>
+
+    <!-- POP -->
+    <div class="albums-panel active" id="panel-pop">
+      <div class="albums-grid" id="grid-pop"></div>
+    </div>
+
+    <!-- POP RAP -->
+    <div class="albums-panel" id="panel-pop-rap">
+      <div class="albums-grid" id="grid-pop-rap"></div>
+    </div>
+
+    <!-- POP R&B -->
+    <div class="albums-panel" id="panel-pop-rnb">
+      <div class="albums-grid" id="grid-pop-rnb"></div>
+    </div>
+
+    <!-- POP LATINO -->
+    <div class="albums-panel" id="panel-pop-latino">
+      <div class="albums-grid" id="grid-pop-latino"></div>
+    </div>
+
+    <!-- INDIE POP -->
+    <div class="albums-panel" id="panel-indie-pop">
+      <div class="albums-grid" id="grid-indie-pop"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWS E EVENTOS -->
+<section id="shows">
+  <div class="section-label">
+    <h2>Shows e <span>Eventos</span></h2>
+    <p>Encontre shows dos seus artistas favoritos perto de você</p>
+  </div>
+ 
+  <div class="shows-section">
+ 
+    <div class="shows-list">
+      <div class="show-card active-show" onclick="focusShow(event, -23.5505, -46.6333)">
+        <div class="show-date">
+          <span class="show-day">15</span>
+          <span class="show-month">JUN</span>
+        </div>
+        <div class="show-info">
+          <h3>Travis Scott</h3>
+          <p>Allianz Parque — São Paulo, BR</p>
+          <span class="show-genre">Pop Rap</span>
+        </div>
+        <div class="show-arrow">→</div>
+      </div>
+ 
+      <div class="show-card" onclick="focusShow(event, 40.7128, -74.0060)">
+        <div class="show-date">
+          <span class="show-day">22</span>
+          <span class="show-month">JUN</span>
+        </div>
+        <div class="show-info">
+          <h3>Drake</h3>
+          <p>Madison Square Garden — New York, USA</p>
+          <span class="show-genre">Pop Rap</span>
+        </div>
+        <div class="show-arrow">→</div>
+      </div>
+ 
+      <div class="show-card" onclick="focusShow(event, 51.5074, -0.1278)">
+        <div class="show-date">
+          <span class="show-day">30</span>
+          <span class="show-month">JUN</span>
+        </div>
+        <div class="show-info">
+          <h3>Bad Bunny</h3>
+          <p>O2 Arena — London, UK</p>
+          <span class="show-genre">Pop Latino</span>
+        </div>
+        <div class="show-arrow">→</div>
+      </div>
+ 
+      <div class="show-card" onclick="focusShow(event, 48.8566, 2.3522)">
+        <div class="show-date">
+          <span class="show-day">07</span>
+          <span class="show-month">JUL</span>
+        </div>
+        <div class="show-info">
+          <h3>Billie Eilish</h3>
+          <p>Accor Arena — Paris, FR</p>
+          <span class="show-genre">Indie Pop</span>
+        </div>
+        <div class="show-arrow">→</div>
+      </div>
+ 
+      <div class="show-card" onclick="focusShow(event, 34.0522, -118.2437)">
+        <div class="show-date">
+          <span class="show-day">14</span>
+          <span class="show-month">JUL</span>
+        </div>
+        <div class="show-info">
+          <h3>The Weeknd</h3>
+          <p>SoFi Stadium — Los Angeles, USA</p>
+          <span class="show-genre">Pop R&B</span>
+        </div>
+        <div class="show-arrow">→</div>
+      </div>
+    </div>
+ 
+    <div class="map-wrapper">
+      <div id="map"></div>
+    </div>
+ 
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="about-section">
+    <h2>Sobre o <span>DISCO.review</span></h2>
+    <p>O Disco.review nasceu da paixão pela música pop e pela vontade de criar um espaço onde fãs possam expressar suas opiniões sobre os álbuns que marcam a cultura.</p>
+    <p>Aqui você encontra curadoria dividida por subgêneros — pop rap, R&B, latino e indie — para que você navegue pelo som que mais combina com o seu momento.</p>
+    <p>Crie sua conta, avalie álbuns e descubra o que a comunidade está curtindo agora.</p>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">
+    <img src="imagens/LOGOTIPO COM ICONE AMARELO.png" alt="Logo" height="40" />
+  </div>
+  <p>© 2026 DISCO.review</p>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <h2>Bem<span>-vindo</span></h2>
+    <p class="modal-sub">Entre na sua conta para avaliar álbuns</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" placeholder="seu@email.com" />
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <button class="btn-primary">Entrar</button>
+    <p class="modal-footer">Não tem conta? <a onclick="switchToRegister()">Cadastre-se grátis</a></p>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="registerModal" onclick="handleRegisterOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeRegister()">✕</button>
+    <h2>Criar <span>Conta</span></h2>
+    <p class="modal-sub">Junte-se à comunidade PopRate</p>
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" placeholder="Seu nome" />
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" placeholder="seu@email.com" />
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <button class="btn-primary">Criar conta</button>
+    <p class="modal-footer">Já tem conta? <a onclick="switchToLogin()">Fazer login</a></p>
+  </div>
+</div>
+
+<!-- RATING MODAL -->
+<div class="modal-overlay" id="ratingModal" onclick="handleRatingOverlayClick(event)">
+  <div class="modal" style="text-align:center;">
+    <button class="modal-close" onclick="closeRating()">✕</button>
+    <h2>Avalie o <span>Álbum</span></h2>
+    <p class="modal-sub" id="ratingAlbumName">—</p>
+    <div class="rating-stars" id="ratingStars">
+      <span class="rating-star" data-v="1" onmouseover="hoverStar(1)" onmouseout="unhoverStar()" onclick="selectStar(1)">★</span>
+      <span class="rating-star" data-v="2" onmouseover="hoverStar(2)" onmouseout="unhoverStar()" onclick="selectStar(2)">★</span>
+      <span class="rating-star" data-v="3" onmouseover="hoverStar(3)" onmouseout="unhoverStar()" onclick="selectStar(3)">★</span>
+      <span class="rating-star" data-v="4" onmouseover="hoverStar(4)" onmouseout="unhoverStar()" onclick="selectStar(4)">★</span>
+      <span class="rating-star" data-v="5" onmouseover="hoverStar(5)" onmouseout="unhoverStar()" onclick="selectStar(5)">★</span>
+    </div>
+    <p class="rating-label" id="ratingLabel">Selecione uma nota</p>
+    <button class="btn-primary" onclick="submitRating()" style="margin-top:8px;">Enviar avaliação</button>
+  </div>
+</div>
+
+<script>
+  // ── GENRE TABS ──
+  function switchGenre(genre, btn) {
+    document.querySelectorAll('.genre-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.albums-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + genre).classList.add('active');
+  }
+
+  // ── MODALS ──
+  function openLogin() {
+    document.getElementById('loginModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLogin() {
+    document.getElementById('loginModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('loginModal')) closeLogin();
+  }
+  function switchToRegister() {
+    closeLogin();
+    setTimeout(() => {
+      document.getElementById('registerModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }, 200);
+  }
+  function closeRegister() {
+    document.getElementById('registerModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleRegisterOverlayClick(e) {
+    if (e.target === document.getElementById('registerModal')) closeRegister();
+  }
+  function switchToLogin() {
+    closeRegister();
+    setTimeout(() => openLogin(), 200);
+  }
+
+  // ── RATING ──
+  let currentRating = 0;
+  const ratingLabels = ['', 'Horrível', 'Fraco', 'OK', 'Bom', 'Obra-prima'];
+
+  function openRating(albumName) {
+    currentRating = 0;
+    document.getElementById('ratingAlbumName').textContent = albumName;
+    document.getElementById('ratingLabel').textContent = 'Selecione uma nota';
+    document.querySelectorAll('.rating-star').forEach(s => s.classList.remove('selected', 'hovered'));
+    document.getElementById('ratingModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeRating() {
+    document.getElementById('ratingModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleRatingOverlayClick(e) {
+    if (e.target === document.getElementById('ratingModal')) closeRating();
+  }
+  function hoverStar(v) {
+    document.querySelectorAll('.rating-star').forEach(s => {
+      s.classList.toggle('hovered', parseInt(s.dataset.v) <= v);
+    });
+    document.getElementById('ratingLabel').textContent = ratingLabels[v];
+  }
+  function unhoverStar() {
+    document.querySelectorAll('.rating-star').forEach(s => s.classList.remove('hovered'));
+    document.getElementById('ratingLabel').textContent = currentRating ? ratingLabels[currentRating] : 'Selecione uma nota';
+  }
+  function selectStar(v) {
+    currentRating = v;
+    document.querySelectorAll('.rating-star').forEach(s => {
+      s.classList.toggle('selected', parseInt(s.dataset.v) <= v);
+    });
+  }
+  function submitRating() {
+    if (!currentRating) {
+      document.getElementById('ratingLabel').textContent = '⚠ Selecione uma nota primeiro';
+      return;
+    }
+    alert(`Avaliação de ${currentRating} estrela${currentRating > 1 ? 's' : ''} enviada! ⭐`);
+    closeRating();
+  }
+
+  // ── ALBUM CARD BUILDER ──
+  function createAlbumCard(title, artist, genre, stars = 0, cover = '') {
+    const card = document.createElement('div');
+    card.className = 'album-card';
+    const initials = title.split(' ').map(w => w[0]).join('').substring(0, 3).toUpperCase();
+    const starsHTML = Array.from({length: 5}, (_, i) =>
+      `<div class="star${i < stars ? ' filled' : ''}"></div>`).join('');
+    const coverHTML = cover
+      ? `<img src="${cover}" alt="${title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
+      : `<div class="album-cover-placeholder">${initials}</div>`;
+    card.innerHTML = `
+      <div class="album-cover">
+        ${coverHTML}
+        <div class="album-overlay">
+          <button class="overlay-rate" onclick="openRating('${title}')">Avaliar</button>
+        </div>
+      </div>
+      <div class="album-info">
+        <h3>${title}</h3>
+        <p>${artist}</p>
+        <div class="album-stars">${starsHTML}</div>
+      </div>`;
+    return card;
+  }
+
+  // ================================================================
+  // ADICIONE SEUS ÁLBUNS AQUI
+  // Formato: createAlbumCard('Nome do Álbum', 'Artista', 'genero', estrelas, 'capas/arquivo.jpg')
+  // ================================================================
+
+  // POP
+  {
+    const grid = document.getElementById('grid-pop-rap');
+    grid.appendChild(createAlbumCard('UTOPIA', 'Travis Scott', 'pop', 5, 'capas/utopia.jpg'));
+    grid.appendChild(createAlbumCard('Her Loss', 'Drake & 21 Savage', 'pop', 4, 'capas/her loss better.jpg'));
+    grid.appendChild(createAlbumCard('Traumatize', 'Megan Thee Stallion', 'pop', 3, 'capas/traumatize.jpg'));
+    grid.appendChild(createAlbumCard('The Eminem Show', 'Eminem', 'pop', 4, 'capas/eminem.jpg'));
+    grid.appendChild(createAlbumCard('Invasion of Privacy', 'Cardi B', 'pop', 4, 'capas/invasion of privacy.jpg'));
+  }
+
+  // POP RAP
+  {
+    const grid = document.getElementById('grid-pop');
+    grid.appendChild(createAlbumCard('HIT ME HARD AND SOFT', 'Billie Eilish', 'pop', 5, 'capas/hit me hard and soft.jpg'));
+    grid.appendChild(createAlbumCard('I`m Breathless', 'Madonna', 'pop', 5, 'capas/im breathless.jpg'));
+    grid.appendChild(createAlbumCard('My World 2.0', 'Justin Bieber', 'pop', 2, 'capas/my world 2.0.jpg'));
+    grid.appendChild(createAlbumCard('Coisas Naturais', 'Marina Sena', 'pop', 4, 'capas/coisasnaturais.jpg'));
+    grid.appendChild(createAlbumCard('After Hours', 'The Weeknd', 'pop', 4, 'capas/after hours.png'));
+    grid.appendChild(createAlbumCard('ANTI', 'Rihanna', 'pop', 4, 'capas/anti.png'));
+    grid.appendChild(createAlbumCard('Unorthodox Jukebox', 'Bruno Mars', 'pop', 3, 'capas/bruno mars.jpg'));
+    grid.appendChild(createAlbumCard('Harry`s House', 'Harry Styles', 'pop', 5, 'capas/harrys house.png'));
+    grid.appendChild(createAlbumCard('Hurry Up Tomorrow', 'The Weeknd', 'pop', 3, 'capas/hurry.jpg'));
+    grid.appendChild(createAlbumCard('Justice', 'Justin Bieber', 'pop', 4, 'capas/justice.png'));
+    grid.appendChild(createAlbumCard('Kiss All The Time. Disco, Occassionaly', 'Harry Styles', 'pop', 5, 'capas/kiss all.png'));
+    grid.appendChild(createAlbumCard('Positions', 'Ariana Grande', 'pop', 5, 'capas/positions.png'));
+    grid.appendChild(createAlbumCard('Sour', 'Olivia Rodrigo', 'pop', 4, 'capas/sour.jpg'));
+    grid.appendChild(createAlbumCard('thank u, next', 'Ariana Grande', 'pop', 4, 'capas/thank u next.jpg'));
+    grid.appendChild(createAlbumCard('Thriller', 'Michael Jackson', 'pop', 3, 'capas/coisasnaturais.jpg'));
+  }
+
+  // POP R&B
+  {
+    const grid = document.getElementById('grid-pop-rnb');
+    grid.appendChild(createAlbumCard('SOS', 'SZA', 'pop-rnb', 5, 'capas/sos.png'));
+    grid.appendChild(createAlbumCard('House Of Ballons', 'The Weeknd', 'pop-rnb', 4, 'capas/balloons.png'));
+    grid.appendChild(createAlbumCard('ctrl', 'SZA', 'pop-rnb', 3, 'capas/ctrl.jpg'));
+    grid.appendChild(createAlbumCard('Flower Boy', 'Tyler, The Creator', 'pop-rnb', 3, 'capas/flower boy.jpg'));
+    grid.appendChild(createAlbumCard('Freudian', 'Daniel Caesar', 'pop-rnb', 3, 'capas/freudian.jpg'));
+    grid.appendChild(createAlbumCard('Isolation', 'Kali Uchis', 'pop-rnb', 3, 'capas/isolation.png'));
+    grid.appendChild(createAlbumCard('My 21st Centery Blues', 'RAYE', 'pop-rnb', 4, 'capas/raye.png'));
+    grid.appendChild(createAlbumCard('Sweet Boy', 'Malcolm Todd', 'pop-rnb', 3, 'capas/sweet boy.jpg'));
+    grid.appendChild(createAlbumCard('TAKE TIME', 'GIVEON', 'pop-rnb', 3, 'capas/TAKE TIME.png'));
+    grid.appendChild(createAlbumCard('The Art of Loving', 'Olivia Dean', 'pop-rnb', 4, 'capas/the art of loving.jpg'));
+    grid.appendChild(createAlbumCard('AAA', 'FLO', 'pop-rnb', 3, 'capas/aaa.jpg'));
+    
+  }
+
+  // POP LATINO
+  {
+    const grid = document.getElementById('grid-pop-latino');
+    grid.appendChild(createAlbumCard('Dinastia', 'Peso Pluma', 'pop-latino', 3, 'capas/dinastia.jpg'));
+    grid.appendChild(createAlbumCard('Debí Tirar Mas Fotos', 'Bad Bunny', 'pop-latino', 5, 'capas/dtmf.png'));
+    grid.appendChild(createAlbumCard('Exodo', 'Peso Pluma', 'pop-latino', 3, 'capas/exodo.jpg'));
+    grid.appendChild(createAlbumCard('LUX', 'Rosalía', 'pop-latino', 4, 'capas/lux.jpg'));
+    grid.appendChild(createAlbumCard('Genesis', 'Peso Pluma', 'pop-latino', 4, 'capas/genesis.jpg'));
+    grid.appendChild(createAlbumCard('Motomami', 'Rosalía', 'pop-latino', 3, 'capas/motomami.jpg'));
+    grid.appendChild(createAlbumCard('Un Verano Sin Ti', 'Bad Bunny', 'pop-latino', 3, 'capas/un verano sin ti.jpg'));
+
+  }
+
+  // INDIE POP
+  {
+    const grid = document.getElementById('grid-indie-pop');
+    grid.appendChild(createAlbumCard('AM', 'Artic Monkeys', 'indie-pop', 4, 'capas/AM.jpg'));
+    grid.appendChild(createAlbumCard('Born To Die', 'Lana Del Rey', 'indie-pop', 3, 'capas/born to die.jpg'));
+    grid.appendChild(createAlbumCard('Currents', 'Tame Impala', 'indie-pop', 4, 'capas/currents.png'));
+    grid.appendChild(createAlbumCard('DECIDE', 'Djo', 'indie-pop', 4, 'capas/DECIDE.jpg'));
+    grid.appendChild(createAlbumCard('For Crying Out Loud', 'FINNEAS', 'indie-pop', 2, 'capas/for crying out loud.jpg'));
+    grid.appendChild(createAlbumCard('DEADBEAT', 'Tame Impala', 'indie-pop', 2, 'capas/deadbeat.jpg'));
+    grid.appendChild(createAlbumCard('Submarine', 'The Marias', 'indie-pop', 3, 'capas/submarine.jpg'));
+    grid.appendChild(createAlbumCard('Kansas Anymore', 'ROLE MODEL', 'indie-pop', 4, 'capas/kansas anymore.jpg'));
+    grid.appendChild(createAlbumCard('Naked All The Time', 'Sports', 'indie-pop', 4, 'capas/naked all the time.jpg'));
+    grid.appendChild(createAlbumCard('Ultraviolence', 'Lana Del Rey', 'indie-pop', 4, 'capas/ultraviolence.jpg'));
+    
+  }
+
+  // ── MAPA ──
+  const map = L.map('map').setView([-23.5505, -46.6333], 2);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+ 
+  const showMarkers = [
+    [-23.526564, -46.678741, 'Travis Scott', 'Allianz Parque — São Paulo, BR', 'Pop Rap'],
+    [40.7128,  -74.0060, 'Drake',        'Madison Square Garden — New York, USA', 'Pop Rap'],
+    [51.5074,   -0.1278, 'Bad Bunny',    'O2 Arena — London, UK', 'Pop Latino'],
+    [48.8566,    2.3522, 'Billie Eilish','Accor Arena — Paris, FR', 'Indie Pop'],
+    [34.0522, -118.2437, 'The Weeknd',   'SoFi Stadium — Los Angeles, USA', 'Pop R&B'],
+  ];
+ 
+  showMarkers.forEach(([lat, lng, artist, venue, genre]) => {
+    L.marker([lat, lng]).addTo(map)
+      .bindPopup(`<b>${artist}</b><br>${venue}<br><span style="color:#f5cb5c;font-weight:700;">${genre}</span>`);
+  });
+ 
+  function focusShow(e, lat, lng) {
+    document.querySelectorAll('.show-card').forEach(c => c.classList.remove('active-show'));
+    e.currentTarget.classList.add('active-show');
+    map.flyTo([lat, lng], 10, { duration: 1.2 });
+  }
+
+  
+
+  
+
+  // ── ESC para fechar ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeLogin(); closeRegister(); closeRating(); }
+  });
+</script>
+
+</body>
+</html>
